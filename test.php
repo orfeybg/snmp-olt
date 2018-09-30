@@ -16,7 +16,7 @@ td, th {
 tr:nth-child(even) {
     background-color: #dddddd;
 }
-<<<<<<< HEAD
+
 
 <?php include 'mystyle.css'; ?>
 
@@ -113,7 +113,7 @@ function sortTable(n) {
 </style>
 </head>
 <body>
->>>>>>> 83d006ff00822b0f3c045d78240874f187b6c82b
+
 
 <?php
 
@@ -156,7 +156,7 @@ echo 'System Uptime: Timeticks -'.$sysuptime[1].'<br>';
 
 		asort($ifDescr);
 =======
->>>>>>> 83d006ff00822b0f3c045d78240874f187b6c82b
+
         foreach ($ifDescr as $key => $value) {
         $iface[$key]['IfId']=$key;
         $value=explode(' ', $value);
@@ -173,7 +173,7 @@ echo 'System Uptime: Timeticks -'.$sysuptime[1].'<br>';
         $value = str_replace("\"", "", $value);
         $iface[$key]['ifAlias']=$value;
         }
-<<<<<<< HEAD
+
 	foreach ($Timeticks as $key => $value) {
         $iface[$key]['Timeticks']=$value;
         $value=explode(' ', $value);
@@ -184,7 +184,7 @@ echo 'System Uptime: Timeticks -'.$sysuptime[1].'<br>';
 	$iface[$key]['Timeticks']=$value;
         }
 =======
->>>>>>> 83d006ff00822b0f3c045d78240874f187b6c82b
+
 	foreach ($ifSpeed as $key => $value) {
         $value=explode(':', $value);
         $value=end($value);
@@ -257,7 +257,6 @@ echo 'System Uptime: Timeticks -'.$sysuptime[1].'<br>';
         $iface[$key]['ONUModel']=$value;
         }
 
-<<<<<<< HEAD
 
 
 
@@ -290,7 +289,7 @@ echo 'System Uptime: Timeticks -'.$sysuptime[1].'<br>';
         $IfDescr=$key['IfDescr'];
         $ifAlias=$key['ifAlias'];
         $IfSpeed=$key['IfSpeed'];
->>>>>>> 83d006ff00822b0f3c045d78240874f187b6c82b
+
         $IfAdminStatus=$key['IfAdminStatus'];
         $IfOperStatus=$key['IfOperStatus'];
         $IfInErrors=$key['IfInErrors'];
@@ -329,7 +328,7 @@ echo 'System Uptime: Timeticks -'.$sysuptime[1].'<br>';
 //        echo '<td>IfInErrors: '.$IfInErrors.'</td>';
 //        echo '<td>IfOutErrors: '.$IfOutErrors.'</td>';
 //	echo '</br>';
->>>>>>> 83d006ff00822b0f3c045d78240874f187b6c82b
+
         $epon=stripos($IfDescr, 'pon');
         $eponslash=stripos($IfDescr, '/');
         $eponcolon=stripos($IfDescr, ':');
@@ -344,7 +343,7 @@ echo 'System Uptime: Timeticks -'.$sysuptime[1].'<br>';
 <<<<<<< HEAD
 =======
 
->>>>>>> 83d006ff00822b0f3c045d78240874f187b6c82b
+
 	echo '</tr>';
 
 }
