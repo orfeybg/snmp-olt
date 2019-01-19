@@ -17,7 +17,6 @@ tr:nth-child(even) {
     background-color: #dddddd;
 }
 
-
 <?php include 'mystyle.css'; ?>
 
 </style>
@@ -109,16 +108,11 @@ function sortTable(n) {
 }
 </script>
 
-=======
-</style>
-</head>
-<body>
-
 
 <?php
 
 $time1= date("Y-m-d H:i:s");
-$ip='ip addres';
+$ip='ip-address-here';
 $ro='public';
 $session = new SNMP(SNMP::VERSION_2C, $ip, $ro);
 $ifDescr = $session->walk(".1.3.6.1.2.1.2.2.1.2", TRUE);
@@ -147,16 +141,16 @@ $ONUVendor = $session->walk("1.3.6.1.4.1.3320.101.10.1.1.1", TRUE);
 
 $ONUModel = $session->walk("1.3.6.1.4.1.3320.101.10.1.1.2", TRUE);
 
-<<<<<<< HEAD
 $Timeticks = $session->walk("iso.3.6.1.2.1.2.2.1.9", TRUE);
 
-$sysuptime[0] = $session->walk("SNMPv2-MIB::sysUpTime.0", TRUE);
-$sysuptime[1] = preg_replace("Timeticks:","",$sysuptime[0]);
-echo 'System Uptime: Timeticks -'.$sysuptime[1].'<br>';
+$sysuptime = $session->walk("SNMPv2-MIB::sysUpTime.0", TRUE);
+//$sysuptime[1] = preg_replace("Timeticks:","",$sysuptime[0]);
+print_r($sysuptime);
+echo "<br>";
+
+//echo '<td>'.$sysuptime.'</td>';
 
 		asort($ifDescr);
-=======
-
         foreach ($ifDescr as $key => $value) {
         $iface[$key]['IfId']=$key;
         $value=explode(' ', $value);
@@ -173,18 +167,18 @@ echo 'System Uptime: Timeticks -'.$sysuptime[1].'<br>';
         $value = str_replace("\"", "", $value);
         $iface[$key]['ifAlias']=$value;
         }
-
 	foreach ($Timeticks as $key => $value) {
-        $iface[$key]['Timeticks']=$value;
-        $value=explode(' ', $value);
+//        $iface[$key]['Timeticks']=$value;
+        $value=explode('  ', $value);
         $value=end($value);
-        $value=trim($value);
 //	$value = str_replace("Timeticks:","",$value[0]);
 //	$value = str_replace("", "", $value);
+
+	$value = explode(')', $value);
+	$value = trim(end($value));
+
 	$iface[$key]['Timeticks']=$value;
         }
-=======
-
 	foreach ($ifSpeed as $key => $value) {
         $value=explode(':', $value);
         $value=end($value);
@@ -262,7 +256,7 @@ echo 'System Uptime: Timeticks -'.$sysuptime[1].'<br>';
 
 
 
-	echo "$time1.<h2></h2>";
+	echo "Генерирано на: $time1.<h2></h2>";
 	echo "<table id='myTable'>";
 	echo "<th onclick='sortTable(0)'>Интерфейс</th>";
 	echo "<th onclick='sortTable(1)'>Потребител</th>";
@@ -271,7 +265,8 @@ echo 'System Uptime: Timeticks -'.$sysuptime[1].'<br>';
         echo "<th onclick='sortTable(4)'>MAC адрес</th>";
         echo "<th onclick='sortTable(5)'>Сила сигнал</th>";
         echo "<th onclick='sortTable(6)'>Температура</th>";
-        echo "<th onclick='sortTable(7)'>Разстояние в метри</th><br/>\n";
+        echo "<th onclick='sortTable(7)'>Разстояние в метри</th>";
+	echo "</tr>";
 	foreach ($iface as $key){
 	$date=date("Y-m-d H:i:s");
 //        $IfId=$equipment_id.'_'.$key['IfId'];
@@ -280,16 +275,6 @@ echo 'System Uptime: Timeticks -'.$sysuptime[1].'<br>';
         $ifAlias=$key['ifAlias'];
         $IfSpeed=$key['IfSpeed'];
 	$Timeticks=$key['Timeticks'];
-=======
-	echo "$time1.<h2></h2>";
-	echo '<table>';
-	foreach ($iface as $key){
-	$date=date("Y-m-d H:i:s");
-        $IfId=$equipment_id.'_'.$key['IfId'];
-        $IfDescr=$key['IfDescr'];
-        $ifAlias=$key['ifAlias'];
-        $IfSpeed=$key['IfSpeed'];
-
         $IfAdminStatus=$key['IfAdminStatus'];
         $IfOperStatus=$key['IfOperStatus'];
         $IfInErrors=$key['IfInErrors'];
@@ -308,7 +293,7 @@ echo 'System Uptime: Timeticks -'.$sysuptime[1].'<br>';
 //      $ONUModel=$key['ONUModel'];}else{$ONUModel=NULL;}
 //      $ONUVendorModel=$ONUVendor.'/'.$ONUModel;
 //	echo '<td>IfId: '.$IfId.'</td>';
-<<<<<<< HEAD
+//	echo '<br>';
         echo '<td>'.$IfDescr.'</td>';
         echo '<td>'.$ifAlias.'</td>';
 //        echo '<td>IfSpeed: '.$IfSpeed.'</td>';
@@ -319,16 +304,6 @@ echo 'System Uptime: Timeticks -'.$sysuptime[1].'<br>';
 //        echo '<td>IfOutErrors: '.$IfOutErrors.'</td>';
 //	echo '</br>';
 	echo '<td>'.$Timeticks.'</td>';
-=======
-        echo '<td>Интерфейс: '.$IfDescr.'</td>';
-        echo '<td>Адрес: '.$ifAlias.'</td>';
-//        echo '<td>IfSpeed: '.$IfSpeed.'</td>';
-//        echo '<td>IfAdminStatus: '.$IfAdminStatus.'</td>';
-        echo '<td>Състояние: '.$IfOperStatus.'</td>';
-//        echo '<td>IfInErrors: '.$IfInErrors.'</td>';
-//        echo '<td>IfOutErrors: '.$IfOutErrors.'</td>';
-//	echo '</br>';
-
         $epon=stripos($IfDescr, 'pon');
         $eponslash=stripos($IfDescr, '/');
         $eponcolon=stripos($IfDescr, ':');
@@ -340,12 +315,7 @@ echo 'System Uptime: Timeticks -'.$sysuptime[1].'<br>';
 //        echo '<td>ONUVendor: '.$ONUVendor.'</td>';
 //        echo '<td>ONUModel: '.$ONUModel.'</td>'; }
 //	echo '</br>';
-<<<<<<< HEAD
-=======
-
-
 	echo '</tr>';
-
 }
 
 	echo '</table>';
